@@ -26,7 +26,7 @@ echo "Updating packages database..."
 apt-get update
 
 echo "Installing required packages..."
-apt-get install -y openvswitch-common openvswitch-switch libnl-dev libssl-dev libnl-genl-3-dev
+apt-get install -y openvswitch-common openvswitch-switch libnl-dev libssl-dev
 
 echo "HOSTAPD-CONFIGURATION STARTING..."
 
@@ -43,9 +43,10 @@ make install
 echo "Creating hostapd config directories under /etc/"
 rm -r /etc/hostapd/
 mkdir -p /etc/hostapd/
+cd ../../
 
 echo "Copying config file under /etc/hostapd/hostapd.conf"
-cp ../../hostapd.conf /etc/hostapd/hostapd.conf
+cp hostapd.conf /etc/hostapd/hostapd.conf
 
 echo "OVS-CONFIGURATION STARTING..."
 
@@ -121,5 +122,6 @@ echo "Modifying kernel routes..."
 route add default gw 192.168.1.1 br0
 route del default gw 192.168.1.1 eth0
 
+echo "SDN TESTBED installed in $SECONDS"
 echo "Rebooting..."
 reboot
