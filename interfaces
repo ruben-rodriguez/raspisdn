@@ -1,0 +1,41 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto lo
+iface lo inet loopback
+
+allow-br0 eth0
+iface eth0 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+
+allow-br0 eth1
+iface eth1 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+
+allow-br0 eth2
+iface eth2 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+
+allow-br0 wlan0
+iface wlan0 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+ up hostapd -B /etc/hostapd/hostapd.conf
+
+allow-ovs br0
+iface br0 inet dhcp
+ ovs_type OVSBridge
+ ovs_ports eth0 eth1 eth2 wlan0
+ up ovs-vsctl set bridge br0 protocols=OpenFlow13
+ up ovs-vsctl set-controller br0 tcp:192.168.1.39:6653
+
+allow-hotplug wlan1
+iface wlan1 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
