@@ -16,5 +16,5 @@ Running the scripts!
 
 ```
 $ cd raspihome/
-$ sudo ./install <BRIDGE_NAME> <CONTROLLER_IP>
+$ sudo ./install
 ```
