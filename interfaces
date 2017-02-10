@@ -21,6 +21,16 @@ iface eth2 inet manual
  ovs_bridge br0
  ovs_type OVSPort
 
+allow-br0 eth3
+iface eth3 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+
+allow-br0 eth4
+iface eth4 inet manual
+ ovs_bridge br0
+ ovs_type OVSPort
+
 allow-br0 wlan0
 iface wlan0 inet manual
  ovs_bridge br0
@@ -30,6 +40,6 @@ iface wlan0 inet manual
 allow-ovs br0
 iface br0 inet dhcp
  ovs_type OVSBridge
- ovs_ports eth0 eth1 eth2 wlan0
+ ovs_ports eth0 eth1 eth2 eth3 eth4 wlan0
  up ovs-vsctl set bridge br0 protocols=OpenFlow13
  up ovs-vsctl set-controller br0 tcp:127.0.0.1:6653
