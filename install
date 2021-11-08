@@ -26,7 +26,7 @@ echo "Updating packages database..."
 apt-get update
 
 echo "Installing required packages..."
-apt-get install -y bridge-utils
+apt-get install -y bridge-utils hostapd
 
 echo "HOSTAPD-CONFIGURATION STARTING..."
 
